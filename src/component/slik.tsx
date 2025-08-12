@@ -98,7 +98,6 @@ const SilkPlane = forwardRef<Mesh, SilkPlaneProps>(function SilkPlane(
   useLayoutEffect(() => {
     const mesh = ref as React.MutableRefObject<Mesh | null>;
     if (mesh.current) {
-      // Scale to cover the entire viewport
       mesh.current.scale.set(viewport.width, viewport.height, 1);
     }
   }, [ref, viewport]);
@@ -135,7 +134,7 @@ export interface SilkProps {
 }
 
 const Silk: React.FC<SilkProps> = ({
-  speed = 5,
+  speed = 3.5,
   scale = 1,
   color = "#5227FF",
   noiseIntensity = 1.5,
@@ -156,19 +155,7 @@ const Silk: React.FC<SilkProps> = ({
   );
 
   return (
-    <Canvas 
-      dpr={[1, 2]} 
-      frameloop="always"
-      style={{
-        width: '100vw',
-        height: '100vh',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        zIndex: -1
-      }}
-      camera={{ position: [0, 0, 1] }}
-    >
+    <Canvas dpr={[1, 2]} frameloop="always">
       <SilkPlane ref={meshRef} uniforms={uniforms} />
     </Canvas>
   );
